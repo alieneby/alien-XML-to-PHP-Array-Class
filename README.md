@@ -1,3 +1,7 @@
-# Alien Framework for PHP
+# 👽 Alien Framework for PHP
 
-Please see https://github.com/alieneby/alien-code
+The framework:
+Please see https://github.com/alieneby/alien-framework-code
+
+The examples:
+Please see https://github.com/alieneby/alien-framewok-examples
