@@ -4,7 +4,6 @@ class AlienXml2Array {
   static $_fTrimContent = true;
   static $_fKeepEmptyContent = false;
 
-
   /**
    * Example:
    * string2array('
@@ -24,7 +23,7 @@ class AlienXml2Array {
    *  "//x/h-1//i" => "k"
    *  "//x/h-count" => "2"
    * )
-   * @param $str string xml / soap / html
+   * @param $str string xml / soap 
    * @return array Flat array. Has no subarrays.
    */
   public function string2array( $str ) {

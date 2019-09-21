@@ -5,17 +5,19 @@ XML String to a flat array.
 No issues with namespaces or soap response messages:
 
 
-Example:
-
+## Example:
+```
 <list>
    <item>a</item>
    <item>b</item>
    <item>c</item>
    <item>d</item>
 </list>
+```
 
 $arr = AlienXml2Array::string2array( $strXML ); 
 
+```
 /*
 RESULT:
     [//list/item-0//] => a
@@ -24,17 +26,20 @@ RESULT:
     [//list/item-3//] => d
     [//list/item-count] => 5
 */
+```
 
 -------------------------------
-Example:
+## Example:
 
-
+```
 <x a="2" b="3" c="4">
-   <y q="5" w="6">My Y content</y>
+        <y q="5" w="6">My Y content</y>
 </x>
+```
 
 $arr = AlienXml2Array::string2array( $strXML ); 
 
+```
 /* RESULT:
     [//x/y//q] => 5
     [//x/y//w] => 6
@@ -43,3 +48,4 @@ $arr = AlienXml2Array::string2array( $strXML );
     [//x//b] => 3
     [//x//c] => 4
 */
+```
