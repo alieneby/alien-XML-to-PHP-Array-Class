@@ -1,7 +1,3 @@
-# 👽 Alien Framework for PHP
+# 👽 Alien XML to PHP Array class / function
 
-The framework:
-Please see https://github.com/alieneby/alien-framework-code
-
-The examples:
-Please see https://github.com/alieneby/alien-framework-examples
+.....
