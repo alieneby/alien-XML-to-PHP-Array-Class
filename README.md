@@ -1,10 +1,13 @@
 # 👽 Alien XML to PHP Array Class / Function
 
-XML String to a flat array.
+XML string to a flat array.
+Very easy and simple to use.
 
-No issues with namespaces or soap response messages:
+No issues with namespaces or soap messages.
+Namespaces are supported.  
 
-## Example XML:
+
+## Easy Example XML:
 ```
 <list>
    <item>a</item>
@@ -28,7 +31,7 @@ RESULT:
 ```
 
 -------------------------------
-## Example XML:
+## Simple Example XML:
 
 ```
 <x a="2" b="3" c="4">
