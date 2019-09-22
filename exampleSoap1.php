@@ -2,22 +2,20 @@
 
 $strXml = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-  <soap:Envelope 
+<soap:Envelope 
     xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" 
     xmlns:awsse="http://xml.amadeus.com/2010/06/Session_v3" 
     xmlns:wsa="http://www.w3.org/2005/08/addressing">
     <soap:Header>
       <wsa:To>http://www.w3.org/2005/08/addressing/anonymous</wsa:To>
+      <wsa:To>https://alien.de</wsa:To>
+      <awsse:To>https://spacex.com</awsse:To>
       <wsa:From>
         <wsa:Address>https://alien.de</wsa:Address>
       </wsa:From>
       <wsa:Action>https://alien.de/GetDocument</wsa:Action>
-      <wsa:MessageID>urn:uuid:88ba5cd2</wsa:MessageID>
-      <wsa:RelatesTo RelationshipType="http://www.w3.org/2005/08/addressing/reply">7ad4672f</wsa:RelatesTo>
       <awsse:Session TransactionStatusCode="End">
         <awsse:SessionId>0RFGSMTJ8I</awsse:SessionId>
-        <awsse:SequenceNumber>1</awsse:SequenceNumber>
-        <awsse:SecurityToken>25UYOS54ETP6DISXGHXUDHJON</awsse:SecurityToken>
       </awsse:Session>
     </soap:Header>
     <soap:Body>
@@ -43,7 +41,6 @@ require_once( 'AlienXml2Array.php');
 
 $arr = AlienXml2Array::string2array( $strXml );
 print_r( $arr );
-
 
 /*
 RESULT:

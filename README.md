@@ -150,9 +150,9 @@ AlienXml2Array::getCount( '>doesNotExist', $arr ) = 0
 
 ### 4) AlienXml2Array::getCountKeys( $strSearchKeyEnd, $arrXML )
 
-If there is a list in xml, then return the array key.
+If there is a list in xml, then return keys within an array.
 
-We use the xml and array from previous example.
+We use the xml and data from previous example.
 
 Examples:
 ```
