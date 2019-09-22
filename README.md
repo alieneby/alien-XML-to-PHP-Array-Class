@@ -52,13 +52,15 @@ $arr = AlienXml2Array::string2array( $strXML );
 -------------------------------
 ## 4 Helper Methods 
 
-a) AlienXml2Array::findFirstValue( $strSearchKeyEnd, $arrXML )
-b) AlienXml2Array::findFirstKey( $strSearchKeyEnd, $arrXML )
-c) AlienXml2Array::getCount( $strSearchKeyEnd, $arrXML )
+1. AlienXml2Array::findFirstValue( $strSearchKeyEnd, $arrXML )
+2. AlienXml2Array::findFirstKey( $strSearchKeyEnd, $arrXML )
+3. AlienXml2Array::getCount( $strSearchKeyEnd, $arrXML )
+3. AlienXml2Array::getCountKeys( $strSearchKeyEnd, $arrXML )
 
 ### AlienXml2Array::findFirstValue( $strSearchKeyEnd, $arrXML )
 
 Returns first found value.
+
 $strSearchKeyEnd: Key or end part of the key.
 
 Example:
@@ -86,6 +88,7 @@ AlienXml2Array::findFirstValue( '>doesNotExist', $arr ) = ''
 ### AlienXml2Array::findFirstKey( $strSearchKeyEnd, $arrXML )
 
 Returns first found key.
+
 $strSearchKeyEnd: Key or end part of the key.
 
 Example:
@@ -136,11 +139,13 @@ $arr = AlienXml2Array::string2array( $strXML );
     [>list>item-count] => 3
 ```
 
+```
 AlienXml2Array::getCount( '>list>item', $arr ) = 3
 AlienXml2Array::getCount( '>item', $arr ) = 3
 AlienXml2Array::getCount( '>lis.*>single', $arr ) = 1
 AlienXml2Array::getCount( '>list', $arr ) = 1
 AlienXml2Array::getCount( '>doesNotExist', $arr ) = 0
+```
 
 
 ### AlienXml2Array::getCountKeys( $strSearchKeyEnd, $arrXML )
@@ -150,11 +155,82 @@ If there is a list in xml, then return the array key.
 We use the xml and array from previous example.
 
 Examples:
-        AlienXml2Array::getCountKeys( '>list>item', $arr ) 
-            = array( '>list>item-0', '>list>item-1');
+```
+AlienXml2Array::getCountKeys( '>list>item', $arr ) 
+    = array( '>list>item-0', '>list>item-1' );
 
-getCountKeys( '>item', $arr ) = array( '>list>item-0', '>list>item-1');
-getCountKeys( '>xml>a', $arrAll ) = array( '>xml>a-0', '>xml>a-1');
-getCountKeys( '.*>b', $arrAll ) = array( '>xml>b');
-getCountKeys( '>xml', $arrAll ) = array( '>xml');
-getCountKeys( '>doesNotExist', $arrAll ) = array();
+AlienXml2Array::getCountKeys( '>item', $arr ) 
+    = array( '>list>item-0', '>list>item-1' );
+
+AlienXml2Array::getCountKeys( '>list>single', $arr ) 
+    = array( '>list>single' );
+
+AlienXml2Array::getCountKeys( '>list', $arr ) 
+    = array( '>list' );
+
+AlienXml2Array::getCountKeys( '>doesNotExist', $arr ) 
+    = array();
+
+```
+
+
+# How do I write a loop over a list of items
+
+```
+<list>
+   <item>
+        <name firstName="tom"/>
+   </item>
+   <item>
+        <name firstName="tina"/>
+   </item>
+   <item>
+        <name />
+   </item>
+   <single>e</single>   
+</list>
+```
+
+$arr = AlienXml2Array::string2array( $strXML );
+```
+    [>list>item-0>name<firstName] => tom
+    [>list>item-1>name<firstName] => tina
+    [>list>item-2>name] => 
+    [>list>single] => e
+    [>list>item-count] => 3
+```
+
+POSSIBILITY 1:
+```
+$arrKeys =  AlienXml2Array::getCountKeys( '>list>item', $arrAll );
+foreach ($arrKeys as $key) {
+    echo "K: $key first name: " 
+        . AlienXml2Array::findFirstValue( $key . '>name<firstName', $arrAll ) 
+        . "\n";
+}
+```
+
+RESULT:
+```
+K: >list>item-0 first name: tom
+K: >list>item-1 first name: tina
+K: >list>item-2 first name:
+```
+
+
+
+POSSIBILITY 2:
+```
+$nItems = AlienXml2Array::getCount( '>list>item', $arrAll ); // = 3
+for ( $i = 0; $i < $nItems; $i++ ) {
+    $k = ">list>item-$i>name<firstName";
+    $strName = isset( $arrAll[ $k ] ) ? $arrAll[ $k ] : ''; 
+    echo "Item name $i: $strName\n";
+}
+```
+RESULT:
+```
+Item name 0: tom
+Item name 1: tina
+Item name 2:
+```

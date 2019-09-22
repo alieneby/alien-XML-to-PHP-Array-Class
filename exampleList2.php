@@ -18,9 +18,9 @@ print_r( $arr );
 
 /*
 RESULT:
-    [//x/h-0/n//] => bla1
-    [//x/h-0//i] => m1
-    [//x/h-1/n//] => bla2
-    [//x/h-1//i] => m2
-    [//x/h-count] => 3
+    [>x>h-0>n] => bla1
+    [>x>h-0<i] => m1
+    [>x>h-1>n] => bla2
+    [>x>h-1<i] => m2
+    [>x>h-count] => 2
 */

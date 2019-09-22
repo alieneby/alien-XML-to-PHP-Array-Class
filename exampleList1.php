@@ -16,9 +16,9 @@ print_r( $arr );
 
 /*
 RESULT:
-    [//list/item-0//] => a
-    [//list/item-1//] => b
-    [//list/item-2//] => c
-    [//list/item-3//] => d
-    [//list/item-count] => 5
+    [>list>item-0] => a
+    [>list>item-1] => b
+    [>list>item-2] => c
+    [>list>item-3] => d
+    [>list>item-count] => 4
 */

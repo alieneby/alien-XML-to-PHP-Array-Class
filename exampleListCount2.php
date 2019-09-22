@@ -3,10 +3,10 @@
 $strXml = <<<XML
 <list>
    <item>
-        <name first="tom"/>
+        <name firstName="tom"/>
    </item>
    <item>
-        <name first="tina"/>
+        <name firstName="tina"/>
    </item>
    <item>
         <name />
@@ -49,15 +49,34 @@ RESULT:
 */
 
 
+echo "EXAMPLE LOOP 1  \n";
+
 $nItems = AlienXml2Array::getCount( '>list>item', $arrAll ); // = 3
 for ( $i = 0; $i < $nItems; $i++ ) {
-    $k = ">list>item-$i>name<first";
+    $k = ">list>item-$i>name<firstName";
     $strName = isset( $arrAll[ $k ] ) ? $arrAll[ $k ] : ''; 
     echo "Item name $i: $strName\n";
 }
 
+/*
+RESULT:
+Item name 0: tom
+Item name 1: tina
+Item name 2:
+*/
 
 
-// print_r( AlienXml2Array::getListElement( '.li.*>item', $arrAll ) );
-// print_r( AlienXml2Array::getListElement( '>item', $arrAll ) );
-print_r( AlienXml2Array::getListElement( 'item-1>name<first', $arrAll ) );
+echo "EXAMPLE LOOP 2  \n";
+$arrKeys =  AlienXml2Array::getCountKeys( '>list>item', $arrAll );
+foreach ($arrKeys as $key) {
+    echo "$key first name: " 
+        . AlienXml2Array::findFirstValue( $key . '>name<firstName', $arrAll ) 
+        . "\n";
+}
+
+/*
+RESULT:
+>list>item-0 first name: tom
+>list>item-1 first name: tina
+>list>item-2 first name: 
+*/

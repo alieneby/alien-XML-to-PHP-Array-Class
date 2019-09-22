@@ -33,4 +33,12 @@ $n5 = AlienXml2Array::getCount( '>list', $arrAll ); // = 1
 $n6 = AlienXml2Array::getCount( '>list>doesNotExist', $arrAll ); // = 0
 
 print_r ( array( $n1, $n2, $n3, $n4, $n5, $n6 ) );
-
+/*
+RESULT:
+    [0] => 4
+    [1] => 4
+    [2] => 1
+    [3] => 1
+    [4] => 1
+    [5] => 0
+*/
