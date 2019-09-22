@@ -4,7 +4,7 @@ XML String to a flat array.
 
 No issues with namespaces or soap response messages:
 
-## Example:
+## Example XML:
 ```
 <list>
    <item>a</item>
@@ -28,7 +28,7 @@ RESULT:
 ```
 
 -------------------------------
-## Example:
+## Example XML:
 
 ```
 <x a="2" b="3" c="4">
@@ -57,7 +57,7 @@ $arr = AlienXml2Array::string2array( $strXML );
 3. AlienXml2Array::getCount( $strSearchKeyEnd, $arrXML )
 3. AlienXml2Array::getCountKeys( $strSearchKeyEnd, $arrXML )
 
-### AlienXml2Array::findFirstValue( $strSearchKeyEnd, $arrXML )
+### 1) AlienXml2Array::findFirstValue( $strSearchKeyEnd, $arrXML )
 
 Returns first found value.
 
@@ -85,7 +85,7 @@ AlienXml2Array::findFirstValue( 'y<q', $arr ) = '5'
 AlienXml2Array::findFirstValue( '>doesNotExist', $arr ) = ''
 ```
 
-### AlienXml2Array::findFirstKey( $strSearchKeyEnd, $arrXML )
+### 2) AlienXml2Array::findFirstKey( $strSearchKeyEnd, $arrXML )
 
 Returns first found key.
 
@@ -113,7 +113,7 @@ AlienXml2Array::findFirstKey( '>x>.*>y<q', $arr ) = '>x>y<q'
 AlienXml2Array::findFirstKey( '>doesNotExist', $arr ) = ''
 ```
 
-### AlienXml2Array::getCount( $strSearchKeyEnd, $arrXML )
+### 3) AlienXml2Array::getCount( $strSearchKeyEnd, $arrXML )
 
 ```
 <list>
@@ -148,7 +148,7 @@ AlienXml2Array::getCount( '>doesNotExist', $arr ) = 0
 ```
 
 
-### AlienXml2Array::getCountKeys( $strSearchKeyEnd, $arrXML )
+### 4) AlienXml2Array::getCountKeys( $strSearchKeyEnd, $arrXML )
 
 If there is a list in xml, then return the array key.
 
@@ -173,6 +173,7 @@ AlienXml2Array::getCountKeys( '>doesNotExist', $arr )
 
 ```
 
+---------------------------------
 
 # How do I write a loop over a list of items
 
