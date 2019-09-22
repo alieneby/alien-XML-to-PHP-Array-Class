@@ -231,7 +231,7 @@ It is also possible to interate over a NONE list element like single:
 ```
 $arrKeys =  AlienXml2Array::getCountKeys( '>list>single', $arrAll );
 foreach ($arrKeys as $key) {
-    echo "K: $key first name: " 
+    echo "K: $key value: " 
         . AlienXml2Array::findFirstValue( $key, $arrAll ) 
         . "\n";
 }
