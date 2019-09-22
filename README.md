@@ -60,6 +60,9 @@ $arr = AlienXml2Array::string2array( $strXML );
 3. AlienXml2Array::getCount( $strSearchKeyEnd, $arrXML )
 3. AlienXml2Array::getCountKeys( $strSearchKeyEnd, $arrXML )
 
+-------------------------------
+
+
 ### 1) AlienXml2Array::findFirstValue( $strSearchKeyEnd, $arrXML )
 
 Returns first found value.
@@ -88,6 +91,7 @@ AlienXml2Array::findFirstValue( 'y<q', $arr ) = '5'
 AlienXml2Array::findFirstValue( '>doesNotExist', $arr ) = ''
 ```
 
+
 ### 2) AlienXml2Array::findFirstKey( $strSearchKeyEnd, $arrXML )
 
 Returns first found key.
@@ -115,6 +119,7 @@ AlienXml2Array::findFirstKey( '>y<q', $arr ) = '>x>y<q'
 AlienXml2Array::findFirstKey( '>x>.*>y<q', $arr ) = '>x>y<q'
 AlienXml2Array::findFirstKey( '>doesNotExist', $arr ) = ''
 ```
+
 
 ### 3) AlienXml2Array::getCount( $strSearchKeyEnd, $arrXML )
 
@@ -177,8 +182,8 @@ AlienXml2Array::getCountKeys( '>doesNotExist', $arr )
 ```
 
 ---------------------------------
-
 # How do I write a loop over a list of items
+-------------------------------
 
 ```
 <list>
@@ -204,7 +209,7 @@ $arr = AlienXml2Array::string2array( $strXML );
     [>list>item-count] => 3
 ```
 
-POSSIBILITY 1:
+Easy PHP example: POSSIBILITY 1:
 ```
 $arrKeys =  AlienXml2Array::getCountKeys( '>list>item', $arrAll );
 foreach ($arrKeys as $key) {
@@ -222,8 +227,24 @@ K: >list>item-2 first name:
 ```
 
 
+It is also possible to interate over a NONE list element like single:
+```
+$arrKeys =  AlienXml2Array::getCountKeys( '>list>single', $arrAll );
+foreach ($arrKeys as $key) {
+    echo "K: $key first name: " 
+        . AlienXml2Array::findFirstValue( $key, $arrAll ) 
+        . "\n";
+}
+```
 
-POSSIBILITY 2:
+RESULT:
+```
+K: >list>single value: e
+```
+
+-----------------
+
+Simple PHP example: POSSIBILITY 2:
 ```
 $nItems = AlienXml2Array::getCount( '>list>item', $arrAll ); // = 3
 for ( $i = 0; $i < $nItems; $i++ ) {
