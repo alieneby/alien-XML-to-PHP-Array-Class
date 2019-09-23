@@ -4,29 +4,29 @@ $strXml = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <soap:Envelope 
     xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" 
-    xmlns:awsse="http://xml.amadeus.com/2010/06/Session_v3" 
-    xmlns:wsa="http://www.w3.org/2005/08/addressing">
+    xmlns:Rocket="http://xml.amadeus.com/2010/06/Session_v3" 
+    xmlns:UFO="http://www.w3.org/2005/08/addressing">
     <soap:Header>
-      <wsa:To>http://www.w3.org/2005/08/addressing/anonymous</wsa:To>
-      <wsa:To>https://alien.de</wsa:To>
-      <awsse:To>https://spacex.com</awsse:To>
-      <wsa:From>
-        <wsa:Address>https://alien.de</wsa:Address>
-      </wsa:From>
-      <wsa:Action>https://alien.de/GetDocument</wsa:Action>
-      <awsse:Session TransactionStatusCode="End">
-        <awsse:SessionId>0RFGSMTJ8I</awsse:SessionId>
-      </awsse:Session>
+      <UFO:To>http://www.w3.org/2005/08/addressing/anonymous</UFO:To>
+      <UFO:To>https://alien.de</UFO:To>
+      <Rocket:To>https://spacex.com</Rocket:To>
+      <UFO:From>
+        <UFO:Address>https://alien.de</UFO:Address>
+      </UFO:From>
+      <UFO:Action>https://alien.de/GetDocument</UFO:Action>
+      <Rocket:Session TransactionStatusCode="End">
+        <Rocket:SessionId>Seance</Rocket:SessionId>
+      </Rocket:Session>
     </soap:Header>
     <soap:Body>
       <GetDocumentRS xmlns="http://xml/Document_v1" Version="1.0">
         <Success>
           <ResponseData>
             <StatusMessage Code="K225">
-              <Text>Darst/RBE ok / S111 Druck LB</Text>
+              <Text>Nice UFO Sighting</Text>
             </StatusMessage>
-            <Attachment Encoding="PDF" Name="Bestaetigung">
-              <Content>PDF DATA CUTTED!!!!!</Content>
+            <Attachment Encoding="PDF" Name="confirmation">
+              <Content>PDF data</Content>
             </Attachment>
             <Operator>UFO</Operator>
             <ReservationReference ID="575666999" ReservationNumberModule="01"/>
@@ -44,38 +44,25 @@ print_r( $arr );
 
 /*
 RESULT:
-
-    [//Envelope/namespace/0] => soap
-    [//Envelope/Header/namespace] => soap
-    [//Envelope/Header/To/namespace] => wsa
-    [//Envelope/Header/To//] => http://www.w3.org/2005/08/addressing/anonymous
-    [//Envelope/Header/From/namespace] => wsa
-    [//Envelope/Header/From/Address/namespace] => wsa
-    [//Envelope/Header/From/Address//] => https://alien.de
-    [//Envelope/Header/Action/namespace] => wsa
-    [//Envelope/Header/Action//] => https://alien.de/GetDocument
-    [//Envelope/Header/MessageID/namespace] => wsa
-    [//Envelope/Header/MessageID//] => urn:uuid:88ba5cd2
-    [//Envelope/Header/RelatesTo/namespace] => wsa
-    [//Envelope/Header/RelatesTo//RelationshipType] => http://www.w3.org/2005/08/addressing/reply
-    [//Envelope/Header/RelatesTo//] => 7ad4672f
-    [//Envelope/Header/Session/namespace] => awsse
-    [//Envelope/Header/Session/SessionId/namespace] => awsse
-    [//Envelope/Header/Session/SessionId//] => 0RFGSMTJ8I
-    [//Envelope/Header/Session/SequenceNumber/namespace] => awsse
-    [//Envelope/Header/Session/SequenceNumber//] => 1
-    [//Envelope/Header/Session/SecurityToken/namespace] => awsse
-    [//Envelope/Header/Session/SecurityToken//] => 25UYOS54ETP6DISXGHXUDHJON
-    [//Envelope/Header/Session//TransactionStatusCode] => End
-    [//Envelope/Body/namespace] => soap
-    [//Envelope/Body/GetDocumentRS/Success/ResponseData/StatusMessage/Text//] => Darst/RBE ok / S111 Druck LB
-    [//Envelope/Body/GetDocumentRS/Success/ResponseData/StatusMessage//Code] => K225
-    [//Envelope/Body/GetDocumentRS/Success/ResponseData/Attachment/Content//] => PDF DATA CUTTED!!!!!
-    [//Envelope/Body/GetDocumentRS/Success/ResponseData/Attachment//Encoding] => PDF
-    [//Envelope/Body/GetDocumentRS/Success/ResponseData/Attachment//Name] => Bestaetigung
-    [//Envelope/Body/GetDocumentRS/Success/ResponseData/Operator//] => UFO
-    [//Envelope/Body/GetDocumentRS/Success/ResponseData/ReservationReference//ID] => 575666999
-    [//Envelope/Body/GetDocumentRS/Success/ResponseData/ReservationReference//ReservationNumberModule] => 01
-    [//Envelope/Body/GetDocumentRS//Version] => 1.0
-      
+    [>Envelope/namespace/0] => soap
+    [>Envelope>soap:Header>UFO:To-0] => http://www.w3.org/2005/08/addressing/anonymous
+    [>Envelope>soap:Header>UFO:To-1] => https://alien.de
+    [>Envelope>soap:Header>UFO:From>UFO:Address] => https://alien.de
+    [>Envelope>soap:Header>UFO:From] =>
+    [>Envelope>soap:Header>UFO:Action] => https://alien.de/GetDocument
+    [>Envelope>soap:Header>UFO:To-count] => 2
+    [>Envelope>soap:Header>Rocket:To] => https://spacex.com
+    [>Envelope>soap:Header>Rocket:Session>Rocket:SessionId] => Seance
+    [>Envelope>soap:Header>Rocket:Session<TransactionStatusCode] => End
+    [>Envelope>soap:Header] =>
+    [>Envelope>soap:Body>GetDocumentRS>Success>ResponseData>StatusMessage>Text] => Nice UFO Sighting
+    [>Envelope>soap:Body>GetDocumentRS>Success>ResponseData>StatusMessage<Code] => K225
+    [>Envelope>soap:Body>GetDocumentRS>Success>ResponseData>Attachment>Content] => PDF data
+    [>Envelope>soap:Body>GetDocumentRS>Success>ResponseData>Attachment<Encoding] => PDF
+    [>Envelope>soap:Body>GetDocumentRS>Success>ResponseData>Attachment<Name] => confirmation
+    [>Envelope>soap:Body>GetDocumentRS>Success>ResponseData>Operator] => UFO
+    [>Envelope>soap:Body>GetDocumentRS>Success>ResponseData>ReservationReference<ID] => 575666999
+    [>Envelope>soap:Body>GetDocumentRS>Success>ResponseData>ReservationReference<ReservationNumberModule] => 01
+    [>Envelope>soap:Body>GetDocumentRS<Version] => 1.0
+    [>Envelope] =>
 */

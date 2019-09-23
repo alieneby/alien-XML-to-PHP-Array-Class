@@ -227,7 +227,7 @@ K: >list>item-2 first name:
 ```
 
 
-It is also possible to interate over a NONE list element like single:
+It is also possible to iterate over a NONE list element like single:
 ```
 $arrKeys =  AlienXml2Array::getCountKeys( '>list>single', $arrAll );
 foreach ($arrKeys as $key) {

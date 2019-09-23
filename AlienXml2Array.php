@@ -5,10 +5,10 @@ class AlienXml2Array {
     static $_fTrimContent = true;
     static $_fKeepEmptyContent = false;
     static $_fIgnoreNameSpaces = false;
-    static $_charSeperatorElement = '>';
-    static $_charSeperatorAttr = '<';
+    static $_charSeparatorElement = '>';
+    static $_charSeparatorAttr = '<';
 
-    private static $_strSeperatorsEscaped; // will be set
+    private static $_strSeparatorsEscaped; // will be set
 
     /**
      * Example:
@@ -30,11 +30,11 @@ class AlienXml2Array {
      *    [>list>item-count] => 3
      *
      * @param $str string xml / soap
-     * @return array Flat array. Has no subarrays.
+     * @return array Flat array. Has no sub arrays.
      */
-    public function string2array( $str ) {
-        self::$_strSeperatorsEscaped
-            = preg_quote( self::$_charSeperatorElement ) . '|' . preg_quote( self::$_charSeperatorAttr );
+    static public function string2array( $str ) {
+        self::$_strSeparatorsEscaped
+            = preg_quote( self::$_charSeparatorElement ) . '|' . preg_quote( self::$_charSeparatorAttr );
         $node = simplexml_load_string( $str );
         $arr = array();
         self::add_node( $node, $arr );
@@ -63,7 +63,6 @@ class AlienXml2Array {
         if ( isset( $arrAll[ $strSearchEnd ] ) ) {
             return $strSearchEnd;
         }
-        $arrMatch = array();
         foreach ( $arrAll as $k => $v ) {
             if ( preg_match( "/$strSearchEnd\$/", $k ) ) {
                 return $k;
@@ -112,8 +111,8 @@ class AlienXml2Array {
      * getCount( '>xml>c', $arrAll ) = 0
      * getCount( '>xml', $arrAll ) = 1
      *
-     * @strKey string Full key name
-     * @arrAll array with the xml content
+     * @param $strKey string Full key name
+     * @param $arrAll array with the xml content
      * @return number count value
      */
     public static function getCount( $strKey, $arrAll ) {
@@ -142,7 +141,7 @@ class AlienXml2Array {
         }
 
         // Perhaps the key is a parent element, without a count value
-        $strChildrenKey = self::findFirstKey( $strKey . '(' . self::$_strSeperatorsEscaped . ').*', $arrAll );
+        $strChildrenKey = self::findFirstKey( $strKey . '(' . self::$_strSeparatorsEscaped . ').*', $arrAll );
 
         if ( $strChildrenKey ) {
             if ( $fDebugMethod ) echo __LINE__ . " return 1\n";
@@ -155,7 +154,7 @@ class AlienXml2Array {
 
     /**
      * getCountKeys( ".*listItems>Item", $arrAll )
-     * Exmaple:
+     * Example:
      *  $arrAll = array(
      *      '>xml>a-count' = 2,
      *      '>xml>a-0' = 'x'
@@ -168,8 +167,8 @@ class AlienXml2Array {
      * getCountKeys( '>xml', $arrAll ) = array( '>xml');
      * getCountKeys( '>doesNotExist', $arrAll ) = array();
      *
-     * @strSearchEnd string Full key name
-     * @arrAll array with the xml content
+     * @param $strSearchEnd string Full key name
+     * @param $arrAll array with the xml content
      * @return array count value
      */
     public static function getCountKeys( $strSearchEnd, $arrAll ) {
@@ -181,12 +180,12 @@ class AlienXml2Array {
             if ( $strFullKey ) return array( $strFullKey );
 
             // Perhaps the key is a parent element, without a count value
-            $strChildrenKey = self::findFirstKey( $strSearchEnd . '(' . self::$_strSeperatorsEscaped . ').*', $arrAll );
+            $strChildrenKey = self::findFirstKey( $strSearchEnd . '(' . self::$_strSeparatorsEscaped . ').*', $arrAll );
             if ( ! $strChildrenKey ) return array(); // no children... then key does not exists.
 
             // we know $strSearchEnd is a parent element. So we return it full name until  
             $arr = array();
-            if ( preg_match( "/^(.*$strSearchEnd)(" . self::$_strSeperatorsEscaped . ")/", $strChildrenKey, $arr ) ) {
+            if ( preg_match( "/^(.*$strSearchEnd)(" . self::$_strSeparatorsEscaped . ")/", $strChildrenKey, $arr ) ) {
                 return array( $arr[1] );
             }
             return array( 'ERROR ' . __LINE__ );
@@ -207,14 +206,23 @@ class AlienXml2Array {
     }
 
 
-    // inpired by @see comment examples on https://www.php.net/manual/de/simplexmlelement.children.php
+
+    /**
+     * inspired by @see comment examples on https://www.php.net/manual/de/simplexmlelement.children.php
+     * @param SimpleXMLElement $node
+     * @param array $arr
+     * @param string $strNamespace
+     * @param bool $fRecursive
+     * @param string $strPath xml path
+     * @param string $strCounter List Item-count value
+     */
     static private function add_node( $node, &$arr = null, $strNamespace = '', $fRecursive = false, $strPath = '', $strCounter = '' ) {
 
         $arrNamespaces = $node->getNameSpaces( true );
         $strContent = "$node";
         $strElementName = $node->getName();
         $strPrefixNamespace = ( $strNamespace && ! self::$_fIgnoreNameSpaces ) ? ( $strNamespace . ':' ) : '';
-        $strPath .= self::$_charSeperatorElement . $strPrefixNamespace . $strElementName . $strCounter;
+        $strPath .= self::$_charSeparatorElement . $strPrefixNamespace . $strElementName . $strCounter;
 
         if ( ! $fRecursive ) {
             $arrNS = array_keys( $node->getNameSpaces( false ) );
@@ -223,20 +231,23 @@ class AlienXml2Array {
             }
         }
 
-        //if ( $strNamespace ) $arr[$strPath . '/namespace'] = $strNamespace;
-
+        // if ( $strNamespace ) $arr[$strPath . '/namespace'] = $strNamespace;
 
         foreach ( $arrNamespaces as $pre => $ns ) {
             $arrChildrenNeedsCounter = self::getChildrenWhoNeedsACounter( $node->children( $ns ) );
             foreach ( $node->children( $ns ) as $k => $v ) {
                 $strCounterLoop = self::getLoopCounter( $arrChildrenNeedsCounter, $k );
-                self::add_node( $v, $arr, $pre, true, $strPath, $strCounterLoop );
+                self::add_node( $v, $arr, $pre, true, $strPath, $strCounterLoop  );
             }
             foreach ( $arrChildrenNeedsCounter as $k => $nCountValue ) {
-                $arr[ $strPath . self::$_charSeperatorElement . "$pre:$k-count" ] = $nCountValue;
+                $strNSCountKey
+                    = self::$_fIgnoreNameSpaces
+                    ? $strPath . self::$_charSeparatorElement . "$k-count"
+                    : $strPath . self::$_charSeparatorElement . "$pre:$k-count";
+                $arr[ $strNSCountKey ] = $nCountValue;
             }
             foreach ( $node->attributes( $ns ) as $k => $v ) {
-                $arr[ $strPath . self::$_charSeperatorAttr . $k ] = "$pre:$v";
+                $arr[ $strPath . self::$_charSeparatorAttr . $k ] = "$pre:$v";
             }
         }
 
@@ -250,16 +261,17 @@ class AlienXml2Array {
 
 
         foreach ( $arrChildrenNeedsCounter as $k => $nCountValue ) {
-            $arr[ $strPath . self::$_charSeperatorElement . $k . '-count' ] = $nCountValue;
+            $arr[ $strPath . self::$_charSeparatorElement . $k . '-count' ] = $nCountValue;
         }
 
         foreach ( $node->attributes() as $k => $v ) {
-            $arr[ $strPath . self::$_charSeperatorAttr . $k ] = "$v";
+            $arr[ $strPath . self::$_charSeparatorAttr . $k ] = "$v";
         }
 
         if ( self::$_fTrimContent ) $strContent = trim( $strContent );
 
         $nChildrenAndAttributes = count( $node->children() ) + count( $node->attributes() );
+
         if ( $strContent || self::$_fKeepEmptyContent || ! $nChildrenAndAttributes ) {
             $arr[ $strPath ] = $strContent;
         }

@@ -27,7 +27,7 @@ class TestAll {
         </x>
 XML;
 
-        // CREATTION OF ARRAY
+        // CREATION OF ARRAY
         $arrAll = AlienXml2Array::string2array( $strXml );
         ksort( $arrAll );
         $strArrPrintR = print_r( $arrAll, true );
@@ -83,7 +83,7 @@ XML;
         if ( self::err( __LINE__, $strArrPrintR, "for(h)", $strResultBase64, $strExpectedBase64 ) ) {
             return false;
         }
-
+        return true;
     }
 
 
@@ -256,7 +256,7 @@ XML;
         <list>
             <item>tim</item>
             <item>tom</item>
-            <item></item>
+            <item/>
         </list>
 XML;
 
@@ -370,35 +370,31 @@ XML;
     static function soap1() {
         $strXml = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-  <soap:Envelope 
+<soap:Envelope 
     xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" 
-    xmlns:awsse="http://xml.amadeus.com/2010/06/Session_v3" 
-    xmlns:wsa="http://www.w3.org/2005/08/addressing">
+    xmlns:Rocket="http://xml.amadeus.com/2010/06/Session_v3" 
+    xmlns:UFO="http://www.w3.org/2005/08/addressing">
     <soap:Header>
-      <wsa:To>http://www.w3.org/2005/08/addressing/anonymous</wsa:To>
-      <wsa:To>https://alien.de</wsa:To>
-      <awsse:To>https://spacex.com</awsse:To>
-      <wsa:From>
-        <wsa:Address>https://alien.de</wsa:Address>
-      </wsa:From>
-      <wsa:Action>https://alien.de/GetDocument</wsa:Action>
-      <wsa:MessageID>urn:uuid:88ba5cd2</wsa:MessageID>
-      <wsa:RelatesTo RelationshipType="http://www.w3.org/2005/08/addressing/reply">7ad4672f</wsa:RelatesTo>
-      <awsse:Session TransactionStatusCode="End">
-        <awsse:SessionId>0RFGSMTJ8I</awsse:SessionId>
-        <awsse:SequenceNumber>1</awsse:SequenceNumber>
-        <awsse:SecurityToken>25UYOS54ETP6DISXGHXUDHJON</awsse:SecurityToken>
-      </awsse:Session>
+      <UFO:To>http://www.w3.org/2005/08/addressing/anonymous</UFO:To>
+      <UFO:To>https://alien.de</UFO:To>
+      <Rocket:To>https://spacex.com</Rocket:To>
+      <UFO:From>
+        <UFO:Address>https://alien.de</UFO:Address>
+      </UFO:From>
+      <UFO:Action>https://alien.de/GetDocument</UFO:Action>
+      <Rocket:Session TransactionStatusCode="End">
+        <Rocket:SessionId>Seance</Rocket:SessionId>
+      </Rocket:Session>
     </soap:Header>
     <soap:Body>
       <GetDocumentRS xmlns="http://xml/Document_v1" Version="1.0">
         <Success>
           <ResponseData>
             <StatusMessage Code="K225">
-              <Text>Darst/RBE ok / S111 Druck LB</Text>
+              <Text>Nice UFO Sighting</Text>
             </StatusMessage>
-            <Attachment Encoding="PDF" Name="Bestaetigung">
-              <Content>PDF DATA CUTTED!!!!!</Content>
+            <Attachment Encoding="PDF" Name="confirmation">
+              <Content>PDF data</Content>
             </Attachment>
             <Operator>UFO</Operator>
             <ReservationReference ID="575666999" ReservationNumberModule="01"/>
@@ -414,7 +410,7 @@ XML;
         ksort( $arrAll );
         $strArrPrintR = print_r( $arrAll, true );
         $strArrBase64 = base64_encode( $strArrPrintR );
-        $strExpectedBase64 = 'QXJyYXkKKAogICAgWz5FbnZlbG9wZV0gPT4gCiAgICBbPkVudmVsb3BlL25hbWVzcGFjZS8wXSA9PiBzb2FwCiAgICBbPkVudmVsb3BlPnNvYXA6Qm9keT5HZXREb2N1bWVudFJTPFZlcnNpb25dID0+IDEuMAogICAgWz5FbnZlbG9wZT5zb2FwOkJvZHk+R2V0RG9jdW1lbnRSUz5TdWNjZXNzPlJlc3BvbnNlRGF0YT5BdHRhY2htZW50PEVuY29kaW5nXSA9PiBQREYKICAgIFs+RW52ZWxvcGU+c29hcDpCb2R5PkdldERvY3VtZW50UlM+U3VjY2Vzcz5SZXNwb25zZURhdGE+QXR0YWNobWVudDxOYW1lXSA9PiBCZXN0YWV0aWd1bmcKICAgIFs+RW52ZWxvcGU+c29hcDpCb2R5PkdldERvY3VtZW50UlM+U3VjY2Vzcz5SZXNwb25zZURhdGE+QXR0YWNobWVudD5Db250ZW50XSA9PiBQREYgREFUQSBDVVRURUQhISEhIQogICAgWz5FbnZlbG9wZT5zb2FwOkJvZHk+R2V0RG9jdW1lbnRSUz5TdWNjZXNzPlJlc3BvbnNlRGF0YT5PcGVyYXRvcl0gPT4gVUZPCiAgICBbPkVudmVsb3BlPnNvYXA6Qm9keT5HZXREb2N1bWVudFJTPlN1Y2Nlc3M+UmVzcG9uc2VEYXRhPlJlc2VydmF0aW9uUmVmZXJlbmNlPElEXSA9PiA1NzU2NjY5OTkKICAgIFs+RW52ZWxvcGU+c29hcDpCb2R5PkdldERvY3VtZW50UlM+U3VjY2Vzcz5SZXNwb25zZURhdGE+UmVzZXJ2YXRpb25SZWZlcmVuY2U8UmVzZXJ2YXRpb25OdW1iZXJNb2R1bGVdID0+IDAxCiAgICBbPkVudmVsb3BlPnNvYXA6Qm9keT5HZXREb2N1bWVudFJTPlN1Y2Nlc3M+UmVzcG9uc2VEYXRhPlN0YXR1c01lc3NhZ2U8Q29kZV0gPT4gSzIyNQogICAgWz5FbnZlbG9wZT5zb2FwOkJvZHk+R2V0RG9jdW1lbnRSUz5TdWNjZXNzPlJlc3BvbnNlRGF0YT5TdGF0dXNNZXNzYWdlPlRleHRdID0+IERhcnN0L1JCRSBvayAvIFMxMTEgRHJ1Y2sgTEIKICAgIFs+RW52ZWxvcGU+c29hcDpIZWFkZXJdID0+IAogICAgWz5FbnZlbG9wZT5zb2FwOkhlYWRlcj5hd3NzZTpTZXNzaW9uPFRyYW5zYWN0aW9uU3RhdHVzQ29kZV0gPT4gRW5kCiAgICBbPkVudmVsb3BlPnNvYXA6SGVhZGVyPmF3c3NlOlNlc3Npb24+YXdzc2U6U2VjdXJpdHlUb2tlbl0gPT4gMjVVWU9TNTRFVFA2RElTWEdIWFVESEpPTgogICAgWz5FbnZlbG9wZT5zb2FwOkhlYWRlcj5hd3NzZTpTZXNzaW9uPmF3c3NlOlNlcXVlbmNlTnVtYmVyXSA9PiAxCiAgICBbPkVudmVsb3BlPnNvYXA6SGVhZGVyPmF3c3NlOlNlc3Npb24+YXdzc2U6U2Vzc2lvbklkXSA9PiAwUkZHU01USjhJCiAgICBbPkVudmVsb3BlPnNvYXA6SGVhZGVyPmF3c3NlOlRvXSA9PiBodHRwczovL3NwYWNleC5jb20KICAgIFs+RW52ZWxvcGU+c29hcDpIZWFkZXI+d3NhOkFjdGlvbl0gPT4gaHR0cHM6Ly9hbGllbi5kZS9HZXREb2N1bWVudAogICAgWz5FbnZlbG9wZT5zb2FwOkhlYWRlcj53c2E6RnJvbV0gPT4gCiAgICBbPkVudmVsb3BlPnNvYXA6SGVhZGVyPndzYTpGcm9tPndzYTpBZGRyZXNzXSA9PiBodHRwczovL2FsaWVuLmRlCiAgICBbPkVudmVsb3BlPnNvYXA6SGVhZGVyPndzYTpNZXNzYWdlSURdID0+IHVybjp1dWlkOjg4YmE1Y2QyCiAgICBbPkVudmVsb3BlPnNvYXA6SGVhZGVyPndzYTpSZWxhdGVzVG9dID0+IDdhZDQ2NzJmCiAgICBbPkVudmVsb3BlPnNvYXA6SGVhZGVyPndzYTpSZWxhdGVzVG88UmVsYXRpb25zaGlwVHlwZV0gPT4gaHR0cDovL3d3dy53My5vcmcvMjAwNS8wOC9hZGRyZXNzaW5nL3JlcGx5CiAgICBbPkVudmVsb3BlPnNvYXA6SGVhZGVyPndzYTpUby0wXSA9PiBodHRwOi8vd3d3LnczLm9yZy8yMDA1LzA4L2FkZHJlc3NpbmcvYW5vbnltb3VzCiAgICBbPkVudmVsb3BlPnNvYXA6SGVhZGVyPndzYTpUby0xXSA9PiBodHRwczovL2FsaWVuLmRlCiAgICBbPkVudmVsb3BlPnNvYXA6SGVhZGVyPndzYTpUby1jb3VudF0gPT4gMgopCg==';
+        $strExpectedBase64 = 'QXJyYXkKKAogICAgWz5FbnZlbG9wZV0gPT4gCiAgICBbPkVudmVsb3BlL25hbWVzcGFjZS8wXSA9PiBzb2FwCiAgICBbPkVudmVsb3BlPnNvYXA6Qm9keT5HZXREb2N1bWVudFJTPFZlcnNpb25dID0+IDEuMAogICAgWz5FbnZlbG9wZT5zb2FwOkJvZHk+R2V0RG9jdW1lbnRSUz5TdWNjZXNzPlJlc3BvbnNlRGF0YT5BdHRhY2htZW50PEVuY29kaW5nXSA9PiBQREYKICAgIFs+RW52ZWxvcGU+c29hcDpCb2R5PkdldERvY3VtZW50UlM+U3VjY2Vzcz5SZXNwb25zZURhdGE+QXR0YWNobWVudDxOYW1lXSA9PiBjb25maXJtYXRpb24KICAgIFs+RW52ZWxvcGU+c29hcDpCb2R5PkdldERvY3VtZW50UlM+U3VjY2Vzcz5SZXNwb25zZURhdGE+QXR0YWNobWVudD5Db250ZW50XSA9PiBQREYgZGF0YQogICAgWz5FbnZlbG9wZT5zb2FwOkJvZHk+R2V0RG9jdW1lbnRSUz5TdWNjZXNzPlJlc3BvbnNlRGF0YT5PcGVyYXRvcl0gPT4gVUZPCiAgICBbPkVudmVsb3BlPnNvYXA6Qm9keT5HZXREb2N1bWVudFJTPlN1Y2Nlc3M+UmVzcG9uc2VEYXRhPlJlc2VydmF0aW9uUmVmZXJlbmNlPElEXSA9PiA1NzU2NjY5OTkKICAgIFs+RW52ZWxvcGU+c29hcDpCb2R5PkdldERvY3VtZW50UlM+U3VjY2Vzcz5SZXNwb25zZURhdGE+UmVzZXJ2YXRpb25SZWZlcmVuY2U8UmVzZXJ2YXRpb25OdW1iZXJNb2R1bGVdID0+IDAxCiAgICBbPkVudmVsb3BlPnNvYXA6Qm9keT5HZXREb2N1bWVudFJTPlN1Y2Nlc3M+UmVzcG9uc2VEYXRhPlN0YXR1c01lc3NhZ2U8Q29kZV0gPT4gSzIyNQogICAgWz5FbnZlbG9wZT5zb2FwOkJvZHk+R2V0RG9jdW1lbnRSUz5TdWNjZXNzPlJlc3BvbnNlRGF0YT5TdGF0dXNNZXNzYWdlPlRleHRdID0+IE5pY2UgVUZPIFNpZ2h0aW5nCiAgICBbPkVudmVsb3BlPnNvYXA6SGVhZGVyXSA9PiAKICAgIFs+RW52ZWxvcGU+c29hcDpIZWFkZXI+Um9ja2V0OlNlc3Npb248VHJhbnNhY3Rpb25TdGF0dXNDb2RlXSA9PiBFbmQKICAgIFs+RW52ZWxvcGU+c29hcDpIZWFkZXI+Um9ja2V0OlNlc3Npb24+Um9ja2V0OlNlc3Npb25JZF0gPT4gU2VhbmNlCiAgICBbPkVudmVsb3BlPnNvYXA6SGVhZGVyPlJvY2tldDpUb10gPT4gaHR0cHM6Ly9zcGFjZXguY29tCiAgICBbPkVudmVsb3BlPnNvYXA6SGVhZGVyPlVGTzpBY3Rpb25dID0+IGh0dHBzOi8vYWxpZW4uZGUvR2V0RG9jdW1lbnQKICAgIFs+RW52ZWxvcGU+c29hcDpIZWFkZXI+VUZPOkZyb21dID0+IAogICAgWz5FbnZlbG9wZT5zb2FwOkhlYWRlcj5VRk86RnJvbT5VRk86QWRkcmVzc10gPT4gaHR0cHM6Ly9hbGllbi5kZQogICAgWz5FbnZlbG9wZT5zb2FwOkhlYWRlcj5VRk86VG8tMF0gPT4gaHR0cDovL3d3dy53My5vcmcvMjAwNS8wOC9hZGRyZXNzaW5nL2Fub255bW91cwogICAgWz5FbnZlbG9wZT5zb2FwOkhlYWRlcj5VRk86VG8tMV0gPT4gaHR0cHM6Ly9hbGllbi5kZQogICAgWz5FbnZlbG9wZT5zb2FwOkhlYWRlcj5VRk86VG8tY291bnRdID0+IDIKKQo=';
         if ( $strExpectedBase64 != $strArrBase64 ) {
             echo 'Line #' . __LINE__ . " ERROR:\n";
             echo "XML: \n$strXml\nBase64: $strArrBase64\n$strArrPrintR\n";
@@ -425,18 +421,18 @@ XML;
         // ----- findFirstValue ---- START ----
 
         // findFirstValue
-        $nResult = AlienXml2Array::findFirstValue( '>Envelope>soap:Header>awsse:Session>awsse:SessionId', $arrAll );
+        $nResult = AlienXml2Array::findFirstValue( '>Envelope>soap:Header>Rocket:Session>Rocket:SessionId', $arrAll );
         $strResultBase64 = base64_encode( $nResult );
-        $strExpectedBase64 = 'MFJGR1NNVEo4SQ==';
-        if ( self::err( __LINE__, $strArrPrintR, "findFirstValue( '>Envelope>soap:Header>awsse:Session>awsse:SessionId', arr )", $strResultBase64, $strExpectedBase64 ) ) {
+        $strExpectedBase64 = 'U2VhbmNl';
+        if ( self::err( __LINE__, $strArrPrintR, "findFirstValue( '>Envelope>soap:Header>Rocket:Session>Rocket:SessionId', arr )", $strResultBase64, $strExpectedBase64 ) ) {
             return false;
         }
 
         // findFirstValue
-        $nResult = AlienXml2Array::findFirstValue( '.*>soap:Header>.*>awsse:SessionId', $arrAll );
+        $nResult = AlienXml2Array::findFirstValue( '.*>soap:Header>.*>Rocket:SessionId', $arrAll );
         $strResultBase64 = base64_encode( $nResult );
-        $strExpectedBase64 = 'MFJGR1NNVEo4SQ==';
-        if ( self::err( __LINE__, $strArrPrintR, "findFirstValue( '.*>soap:Header>.*>awsse:SessionId', arr )", $strResultBase64, $strExpectedBase64 ) ) {
+        $strExpectedBase64 = 'U2VhbmNl';
+        if ( self::err( __LINE__, $strArrPrintR, "findFirstValue( '.*>soap:Header>.*>Rocket:SessionId', arr )", $strResultBase64, $strExpectedBase64 ) ) {
             return false;
         }
 
@@ -466,10 +462,10 @@ XML;
 
         // ----- findFirstKey ---- START ----
 
-        // findFirstValue
+        // key
         $nResult = AlienXml2Array::findFirstKey( ':SessionId', $arrAll );
         $strResultBase64 = base64_encode( $nResult );
-        $strExpectedBase64 = 'PkVudmVsb3BlPnNvYXA6SGVhZGVyPmF3c3NlOlNlc3Npb24+YXdzc2U6U2Vzc2lvbklk';
+        $strExpectedBase64 = 'PkVudmVsb3BlPnNvYXA6SGVhZGVyPlJvY2tldDpTZXNzaW9uPlJvY2tldDpTZXNzaW9uSWQ=';
         if ( self::err( __LINE__, $strArrPrintR, "findFirstKey( ':SessionId', arr )", $strResultBase64, $strExpectedBase64 ) ) {
             return false;
         }
@@ -485,27 +481,28 @@ XML;
         }
 
         // count list values
-        $nResult = AlienXml2Array::getCount( '>Envelope>soap:Header>wsa:To', $arrAll );
+        $nResult = AlienXml2Array::getCount( '>Envelope>soap:Header>UFO:To', $arrAll );
         $strResultBase64 = base64_encode( $nResult );
         $strExpectedBase64 = 'Mg==';
-        if ( self::err( __LINE__, $strArrPrintR, "getCount( '>Envelope>soap:Header>wsa:To', arr )", $strResultBase64, $strExpectedBase64 ) ) {
+        if ( self::err( __LINE__, $strArrPrintR, "getCount( '>Envelope>soap:Header>UFO:To', arr )", $strResultBase64, $strExpectedBase64 ) ) {
             return false;
         }
+
         // count list values
-        $nResult = AlienXml2Array::getCount( '>wsa:To', $arrAll );
+        $nResult = AlienXml2Array::getCount( '>UFO:To', $arrAll );
         $strResultBase64 = base64_encode( $nResult );
         $strExpectedBase64 = 'Mg==';
-        if ( self::err( __LINE__, $strArrPrintR, "getCount( '>wsa:To', arr )", $strResultBase64, $strExpectedBase64 ) ) {
+        if ( self::err( __LINE__, $strArrPrintR, "getCount( '>UFO:To', arr )", $strResultBase64, $strExpectedBase64 ) ) {
             return false;
         }
 
         /// ----- getting list ---- START ----
 
         // getting list 
-        $arrResult = AlienXml2Array::getCountKeys( '>wsa:To', $arrAll );
+        $arrResult = AlienXml2Array::getCountKeys( '>UFO:To', $arrAll );
         $strResultBase64 = base64_encode( print_r( $arrResult, true ) );
-        $strExpectedBase64 = 'QXJyYXkKKAogICAgWzBdID0+ID5FbnZlbG9wZT5zb2FwOkhlYWRlcj53c2E6VG8tMAogICAgWzFdID0+ID5FbnZlbG9wZT5zb2FwOkhlYWRlcj53c2E6VG8tMQopCg==';
-        if ( self::err( __LINE__, $strArrPrintR, "getCountKeys( '>wsa:To', arr )", $strResultBase64, $strExpectedBase64 ) ) {
+        $strExpectedBase64 = 'QXJyYXkKKAogICAgWzBdID0+ID5FbnZlbG9wZT5zb2FwOkhlYWRlcj5VRk86VG8tMAogICAgWzFdID0+ID5FbnZlbG9wZT5zb2FwOkhlYWRlcj5VRk86VG8tMQopCg==';
+        if ( self::err( __LINE__, $strArrPrintR, "getCountKeys( '>UFO:To', arr )", $strResultBase64, $strExpectedBase64 ) ) {
             return false;
         }
 
