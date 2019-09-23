@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $strXml = <<<XML
 <list>
@@ -15,7 +15,7 @@ $strXml = <<<XML
 </list>
 XML;
 
-require_once( 'AlienXml2Array.php');
+require_once( 'AlienXml2Array.php' );
 
 $arrAll = AlienXml2Array::string2array( $strXml );
 print_r( $arrAll );
@@ -36,7 +36,7 @@ $n4 = AlienXml2Array::getCount( '>list>single-count', $arrAll ); // = 1
 $n5 = AlienXml2Array::getCount( '>list', $arrAll ); // = 1
 $n6 = AlienXml2Array::getCount( '>list>doesNotExist', $arrAll ); // = 0
 
-print_r ( array( $n1, $n2, $n3, $n4, $n5, $n6 ) );
+print_r( array( $n1, $n2, $n3, $n4, $n5, $n6 ) );
 
 /*
 RESULT:
@@ -54,7 +54,7 @@ echo "EXAMPLE LOOP 1  \n";
 $nItems = AlienXml2Array::getCount( '>list>item', $arrAll ); // = 3
 for ( $i = 0; $i < $nItems; $i++ ) {
     $k = ">list>item-$i>name<firstName";
-    $strName = isset( $arrAll[ $k ] ) ? $arrAll[ $k ] : ''; 
+    $strName = isset( $arrAll[ $k ] ) ? $arrAll[ $k ] : '';
     echo "Item name $i: $strName\n";
 }
 
@@ -67,10 +67,10 @@ Item name 2:
 
 
 echo "EXAMPLE LOOP 2  \n";
-$arrKeys =  AlienXml2Array::getCountKeys( '>list>item', $arrAll );
-foreach ($arrKeys as $key) {
-    echo "$key first name: " 
-        . AlienXml2Array::findFirstValue( $key . '>name<firstName', $arrAll ) 
+$arrKeys = AlienXml2Array::getCountKeys( '>list>item', $arrAll );
+foreach ( $arrKeys as $key ) {
+    echo "$key first name: "
+        . AlienXml2Array::findFirstValue( $key . '>name<firstName', $arrAll )
         . "\n";
 }
 

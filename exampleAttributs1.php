@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $strXml = <<<XML
 <x a="2" b="3" c="4">
@@ -6,7 +6,7 @@ $strXml = <<<XML
 </x>
 XML;
 
-require_once( 'AlienXml2Array.php');
+require_once( 'AlienXml2Array.php' );
 
 $arr = AlienXml2Array::string2array( $strXml );
 print_r( $arr );

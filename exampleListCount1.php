@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $strXml = <<<XML
 <list>
@@ -10,7 +10,7 @@ $strXml = <<<XML
 </list>
 XML;
 
-require_once( 'AlienXml2Array.php');
+require_once( 'AlienXml2Array.php' );
 
 $arrAll = AlienXml2Array::string2array( $strXml );
 print_r( $arrAll );
@@ -32,7 +32,7 @@ $n4 = AlienXml2Array::getCount( '>list>single-count', $arrAll ); // = 1
 $n5 = AlienXml2Array::getCount( '>list', $arrAll ); // = 1
 $n6 = AlienXml2Array::getCount( '>list>doesNotExist', $arrAll ); // = 0
 
-print_r ( array( $n1, $n2, $n3, $n4, $n5, $n6 ) );
+print_r( array( $n1, $n2, $n3, $n4, $n5, $n6 ) );
 /*
 RESULT:
     [0] => 4

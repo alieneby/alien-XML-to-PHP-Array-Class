@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $strXml = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -37,7 +37,7 @@ $strXml = <<<XML
   </soap:Envelope>
 XML;
 
-require_once( 'AlienXml2Array.php');
+require_once( 'AlienXml2Array.php' );
 
 $arr = AlienXml2Array::string2array( $strXml );
 print_r( $arr );
